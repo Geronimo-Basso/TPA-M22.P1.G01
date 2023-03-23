@@ -1,4 +1,7 @@
 public class Hash {
+    private Celda<Valor> contenedor;
+    private int numElementos = 0;
+    private float alfaMaximo = 0;
     public Hash(){
     }
 
@@ -28,5 +31,38 @@ public class Hash {
     public void setAlfaMax(float){
     }
 
+    public int getNumElementos(){
+    }
 
+    public float factorCarga(){
+
+    }
+
+    private boolean hayColision(int index){
+
+    }
+
+    private int hash1(int ){
+
+    }
+
+    private int hash2(int ){
+
+    }
+
+    private void redimensionar(){
+
+    }
+
+    private boolean esPrimo(int){
+
+    }
+
+    private int siguientePrimo(int){
+
+    }
+
+    public String toString(){
+
+    }
 }
