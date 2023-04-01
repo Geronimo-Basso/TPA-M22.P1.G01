@@ -75,9 +75,23 @@ public class Hash<Valor> {
     private void redimensionar(){
     }
 
+    /**
+     * Metodo que comprueba si un numero es primo o no
+     * @param numero Numero a comprobar
+     * @return true si es primo, false si no lo es
+     */
     private boolean esPrimo(int numero){
-        boolean devolucion = true;
-        return devolucion;
+        if (numero <= 1) {
+            return false;
+        }
+        int i = 2;
+        while (i <= Math.sqrt(numero)) {
+            if (numero % i == 0) {
+                return false;
+            }
+            i++;
+        }
+        return true;
     }
 
     private int siguientePrimo(int numero){
