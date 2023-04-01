@@ -1,14 +1,19 @@
 public class Hash<Valor> {
-    private Celda<Valor> contenedor;
+    private Celda<Valor>[] contenedor;
     private int numElementos = 0;
     private float alfaMaximo = 0;
     public Hash(){
+        this.contenedor = new Celda[7];
+        this.alfaMaximo = 0.80f;
     }
 
     public Hash(int capacidad){
+        this.alfaMaximo = 0.80f;
     }
 
     public Hash(int capacidad, float alfaMax){
+        this.contenedor = new Celda[capacidad];
+        this.alfaMaximo = alfaMax;
     }
 
     public void insertar(int clave, Valor v){
@@ -18,51 +23,70 @@ public class Hash<Valor> {
         return true;
     }
 
+
     public Valor get(int clave){
+        return null;
     }
 
     public boolean esVacia(){
         return true;
     }
 
-    public float getAlfaMax(){
+    public float getAlfaMax() {
+        return alfaMaximo;
     }
 
-    public void setAlfaMax(float){
+    public void setAlfaMax(float alfaMaximo) {
+        this.alfaMaximo = alfaMaximo;
     }
 
-    public int getNumElementos(){
+    public int getNumElementos() {
+        return numElementos;
     }
 
+//    public void setNumElementos(int numElementos) {
+//        this.numElementos = numElementos;
+//    }
+//
     public float factorCarga(){
-
+        float devolucion = 0;
+        return devolucion;
     }
 
     private boolean hayColision(int index){
-
+        return true;
     }
 
-    private int hash1(int ){
-
+    private int funcionHash(int clave, int colisiones){
+        int devolucion = 0;
+        return devolucion;
     }
 
-    private int hash2(int ){
+    private int hash1(int clave){
+        int devolucion = 0;
+        return devolucion;
+    }
 
+    private int hash2(int clave, int colisiones){
+        int devolucion = 0;
+        return devolucion;
     }
 
     private void redimensionar(){
-
     }
 
-    private boolean esPrimo(int){
-
+    private boolean esPrimo(int numero){
+        boolean devolucion = true;
+        return devolucion;
     }
 
-    private int siguientePrimo(int){
-
+    private int siguientePrimo(int numero){
+        int devolucion = 0;
+        return devolucion;
     }
 
     public String toString(){
-
+        String devolucion = "";
+        return devolucion;
     }
 }
