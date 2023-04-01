@@ -1,4 +1,4 @@
-public class Hash {
+public class Hash<Valor> {
     private Celda<Valor> contenedor;
     private int numElementos = 0;
     private float alfaMaximo = 0;

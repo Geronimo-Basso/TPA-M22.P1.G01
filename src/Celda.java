@@ -1,41 +1,84 @@
-public class Celda {
+import java.util.Objects;
+
+/**
+ * Clase Celda
+ * @param <Valor>  Valor es un tipo genérico, por lo que puede ser cualquier tipo de dato.
+ */
+public class Celda<Valor> {
+
+    /**
+     * Clave de la celda
+     */
     private int clave = 0;
+
+    /*
+    Valor es un tipo genérico, por lo que puede ser cualquier tipo de dato.
+     */
     private Valor valor;
+
+    /**
+     * El estado puede tomar tres valores:
+     *-1: La celda estaba ocupada y ha sido borrada.
+     * 0: La celda está vacía
+     * 1: La celda está ocupada
+     */
     private int estado = 0;
 
+    /**
+     * Constructor vacio de la clase Celda
+     */
     public Celda(){
-
     }
 
-    public Celda(int, Valor){
-
+    /**
+     * Constructor de la clase Celda
+     * @param clave Clave de la celda
+     * @param valor Valor de la celda
+     */
+    public Celda(int clave, Valor valor){
+        this.clave = clave;
+        this.valor = valor;
+        this.estado = 1;
     }
 
-    public boolean setEstado(int){
-
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
-    public void setClave(int){
-
+    public void setClave(int clave) {
+        this.clave = clave;
     }
 
-    public void setValor(Valor){
-
+    public void setValor(Valor valor) {
+        this.valor = valor;
     }
 
-    public int getEstado(){
-
+    public int getEstado() {
+        return estado;
     }
 
-    public void getClave(int){
-
+    public int getClave() {
+        return clave;
     }
 
-    public void getValor(Valor){
-
+    public Valor getValor() {
+        return valor;
     }
 
-    public boolean equals(Object){
-        
+    /**
+     * Metodo equals de la clase Celda, se usa para comparar dos celdas y saber si son iguales.
+     * @param o Objeto a comparar
+     * @return true si son iguales, false si no lo son.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Celda<?> celda = (Celda<?>) o;
+
+        if (clave != celda.clave) return false;
+        if (estado != celda.estado) return false;
+        return Objects.equals(valor, celda.valor);
     }
 }
