@@ -106,8 +106,22 @@ public class Hash<Valor> {
         return numero;
     }
 
+    /**
+     * Metodo que devuelve el numero de elementos de la tabla hash.
+     *
+     * Si la celda no es null, es decir, si hay un elemento en esa posicion, se imprime la clave.
+     * Es necesario chequearlo dado que si fuera null estoy haciendo un getClave() a un objeto null, lo cual da error.
+     * @return
+     */
     public String toString(){
-        String devolucion = "";
+        String devolucion = "Tabla Hash con " + numElementos + " elementos y con un alfaMaximo de: "  + alfaMaximo  + "."+ "\n" + "los elementos dentro de esta tabla hash son: " + "\n";
+        for (int i = 0; i < contenedor.length; i++) {
+            if(contenedor[i] != null){
+                devolucion += "Clave: " + contenedor[i].getClave() + " " + "Valor: " +  contenedor[i].getValor() + "Estado: " +  contenedor[i].getEstado() + "\n";
+            }else{
+                devolucion += "Clave: " + "null" + " " + "Valor: " +  "null" + "Estado: " +  "null" + "\n";
+            }
+        }
         return devolucion;
     }
 }

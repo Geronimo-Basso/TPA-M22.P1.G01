@@ -81,4 +81,5 @@ public class Celda<Valor> {
         if (estado != celda.estado) return false;
         return Objects.equals(valor, celda.valor);
     }
+
 }
