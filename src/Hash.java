@@ -94,9 +94,16 @@ public class Hash<Valor> {
         return true;
     }
 
-    private int siguientePrimo(int numero){
-        int devolucion = 0;
-        return devolucion;
+    /**
+     * Funcion que devuelve el siguiente numero primo a partir de un numero dado.
+     * @param numero
+     * @return
+     */
+    private int siguientePrimo(int numero){ //todo Explorar el caso en el que numero sea 1. Dado que si numero es 1, el siguiente primo es 2. Pero quiero una tabla con 2 o 3?
+        while(!esPrimo(numero)){
+            numero++;
+        }
+        return numero;
     }
 
     public String toString(){
