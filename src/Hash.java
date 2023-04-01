@@ -1,16 +1,35 @@
+/**
+ * Clase que implementa una tabla hash con direccionamiento abierto.
+ * @param <Valor> Valor es un tipo genérico, por lo que puede ser cualquier tipo de dato.
+ */
 public class Hash<Valor> {
     private Celda<Valor>[] contenedor;
     private int numElementos = 0;
     private float alfaMaximo = 0;
+
+    /**
+     * Constructor de la clase Hash.
+     * Si no es especificamos el factor de carga máximo, se toma por defecto el 0.80f.
+     * Si no especificamos la capacidad, se toma por defecto el 7.
+     */
     public Hash(){
         this.contenedor = new Celda[7];
         this.alfaMaximo = 0.80f;
     }
 
+    /**
+     * Constructor de la clase Hash. Si no es especificamos el factor de carga máximo, se toma por defecto el 0.80f.
+     * @param capacidad Tamaño de la tabla hash
+     */
     public Hash(int capacidad){
         this.alfaMaximo = 0.80f;
     }
 
+    /**
+     * Constructor de la clase Hash
+     * @param capacidad Tamaño de la tabla hash
+     * @param alfaMax Factor de carga máximo
+     */
     public Hash(int capacidad, float alfaMax){
         this.contenedor = new Celda[capacidad];
         this.alfaMaximo = alfaMax;
