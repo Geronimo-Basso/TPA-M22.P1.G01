@@ -78,16 +78,19 @@ public class Hash<Valor> {
 
     private int funcionHash(int clave, int colisiones){
         int devolucion = 0;
+        devolucion = (hash1(clave) + hash2(clave, colisiones));
         return devolucion;
     }
 
     private int hash1(int clave){
         int devolucion = 0;
+        devolucion = clave % contenedor.length;
         return devolucion;
     }
 
     private int hash2(int clave, int colisiones){
         int devolucion = 0;
+        devolucion = (colisiones * (7 - (clave % 7)));
         return devolucion;
     }
 
@@ -136,9 +139,9 @@ public class Hash<Valor> {
         String devolucion = "Tabla Hash con " + numElementos + " elementos y con un alfaMaximo de: "  + alfaMaximo  + "."+ "\n" + "los elementos dentro de esta tabla hash son: " + "\n";
         for (int i = 0; i < contenedor.length; i++) {
             if(contenedor[i] != null){
-                devolucion += "Clave: " + contenedor[i].getClave() + " " + "Valor: " +  contenedor[i].getValor() + "Estado: " +  contenedor[i].getEstado() + "\n";
+                devolucion += "Estado: " +  contenedor[i].getEstado() + " " + "Clave: " + contenedor[i].getClave() + " " + "Valor: " +  contenedor[i].getValor() + "\n";
             }else{
-                devolucion += "Clave: " + "null" + " " + "Valor: " +  "null" + "Estado: " +  "null" + "\n";
+                devolucion += "Estado: " + "null" + " " + "Clave: " +  "null" + "Valor: " +  "null" + "\n";
             }
         }
         return devolucion;
