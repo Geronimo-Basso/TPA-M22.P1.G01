@@ -36,6 +36,28 @@ public class Hash<Valor> {
     }
 
     public void insertar(int clave, Valor v){
+        float alpaAFuturo = (float) numElementos / contenedor.length;
+        if( alpaAFuturo>= alfaMaximo){ //camino redimensionar la hash table.
+            redimensionar();
+            int colisiones = 0;
+            int indice = funcionHash(clave, colisiones);
+            while(hayColision(indice)){
+                colisiones++;
+                indice = funcionHash(clave, colisiones);
+            }
+            contenedor[indice] = new Celda(clave, v);
+            numElementos++;
+        }else{
+            int colisiones = 0;
+            int indice = funcionHash(clave, colisiones);
+            while(hayColision(indice)){
+                colisiones++;
+                indice = funcionHash(clave, colisiones);
+            }
+            contenedor[indice] = new Celda(clave, v);
+            numElementos++;
+        }
+
     }
 
     public boolean borrar(int clave){
@@ -43,7 +65,13 @@ public class Hash<Valor> {
     }
 
 
+    /**
+     * Devuelve null si el dato asociado a la clave indicada no está en la tabla.
+     * @param clave
+     * @return
+     */
     public Valor get(int clave){
+
         return null;
     }
 
@@ -63,22 +91,25 @@ public class Hash<Valor> {
         return numElementos;
     }
 
-//    public void setNumElementos(int numElementos) {
-//        this.numElementos = numElementos;
-//    }
-//
     public float factorCarga(){
         float devolucion = 0;
         return devolucion;
     }
 
     private boolean hayColision(int index){
-        return true;
+        boolean devolucion = false;
+        if(contenedor[index] != null){
+            devolucion = true;
+        }
+        return devolucion;
     }
 
     private int funcionHash(int clave, int colisiones){
         int devolucion = 0;
         devolucion = (hash1(clave) + hash2(clave, colisiones));
+        if(devolucion >= contenedor.length){
+            devolucion = devolucion % contenedor.length;
+        }
         return devolucion;
     }
 
@@ -95,6 +126,22 @@ public class Hash<Valor> {
     }
 
     private void redimensionar(){
+        int nuevaCapacidad = siguientePrimo(contenedor.length * 2);
+        Celda<Valor>[] nuevoContenedor = new Celda[nuevaCapacidad];
+        for (int i = 0; i < contenedor.length; i++) {
+            if(contenedor[i] != null){
+                int colisiones = 0;
+                int indice = funcionHash(contenedor[i].getClave(), colisiones);
+                while(hayColision(indice)){
+                    colisiones++;
+                    indice = funcionHash(contenedor[i].getClave(), colisiones);
+                }
+                nuevoContenedor[indice] = new Celda(contenedor[i].getClave(), contenedor[i].getValor());
+
+            }
+        }
+        //Asigno el nuevo contenedor a la tabla hash.
+        contenedor = nuevoContenedor;
     }
 
     /**
@@ -139,9 +186,9 @@ public class Hash<Valor> {
         String devolucion = "Tabla Hash con " + numElementos + " elementos y con un alfaMaximo de: "  + alfaMaximo  + "."+ "\n" + "los elementos dentro de esta tabla hash son: " + "\n";
         for (int i = 0; i < contenedor.length; i++) {
             if(contenedor[i] != null){
-                devolucion += "Estado: " +  contenedor[i].getEstado() + " " + "Clave: " + contenedor[i].getClave() + " " + "Valor: " +  contenedor[i].getValor() + "\n";
+                devolucion += "Indice: " + i  + "    |" + " Estado: " +  contenedor[i].getEstado() + "           " + "Clave: " + contenedor[i].getClave() + "       " + "Valor: " +  contenedor[i].getValor() + "\n";
             }else{
-                devolucion += "Estado: " + "null" + " " + "Clave: " +  "null" + "Valor: " +  "null" + "\n";
+                devolucion += "Indice: " + i  + "    |" + " Estado: " + "null       " + " " + "Clave: " +  "null     " + "Valor: " +  "null" + "\n";
             }
         }
         return devolucion;
