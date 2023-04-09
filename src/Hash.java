@@ -37,32 +37,45 @@ public class Hash<Valor> {
 
     public void insertar(int clave, Valor v){
         float alfaAFuturo =  (float) (( numElementos + 1 ) / contenedor.length);
-        if( alfaAFuturo >= alfaMaximo){ //camino redimensionar la hash table.
-            redimensionar();
-            int colisiones = 0;
-            int indice = funcionHash(clave, colisiones);
-            while(hayColision(indice)){
-                colisiones++;
-                indice = funcionHash(clave, colisiones);
+        boolean yaExiste = false;
+        if(numElementos >= 0){
+            for (int i = 0; i < contenedor.length; i++) {
+                if(contenedor[i] != null){
+                    if(contenedor[i].getValor() == v){
+                        yaExiste = true;
+                        System.out.println("El valor ya existe en la tabla hash.");
+                    }
+                }
             }
-            Celda<Valor> celda = new Celda(clave, v);
-            celda.setEstado(1);
-//            contenedor[indice] = new Celda(clave, v);
-            contenedor[indice] = celda;
-            numElementos++;
-        }else{
-            int colisiones = 0;
-            int indice = funcionHash(clave, colisiones);
-            while(hayColision(indice)){
-                colisiones++;
-                indice = funcionHash(clave, colisiones);
-            }
-            Celda<Valor> celda = new Celda(clave, v);
-            celda.setEstado(1);
-            contenedor[indice] = celda;
-            numElementos++;
         }
 
+        if(!yaExiste){
+            if( alfaAFuturo >= alfaMaximo){ //camino redimensionar la hash table.
+                redimensionar();
+                int colisiones = 0;
+                int indice = funcionHash(clave, colisiones);
+                while(hayColision(indice)){
+                    colisiones++;
+                    indice = funcionHash(clave, colisiones);
+                }
+                Celda<Valor> celda = new Celda(clave, v);
+                celda.setEstado(1);
+//            contenedor[indice] = new Celda(clave, v);
+                contenedor[indice] = celda;
+                numElementos++;
+            }else{
+                int colisiones = 0;
+                int indice = funcionHash(clave, colisiones);
+                while(hayColision(indice)){
+                    colisiones++;
+                    indice = funcionHash(clave, colisiones);
+                }
+                Celda<Valor> celda = new Celda(clave, v);
+                celda.setEstado(1);
+                contenedor[indice] = celda;
+                numElementos++;
+            }
+        }
     }
 
     public boolean borrar(int clave){
