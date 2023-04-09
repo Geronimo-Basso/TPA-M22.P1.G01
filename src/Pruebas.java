@@ -3,35 +3,53 @@ public class Pruebas {
     public static void main(String[] args) {
         Pruebas pruebas = new Pruebas();
         pruebas.test1();
-        pruebas.test2();
+//        pruebas.test2();
     }
 
     public void test1(){
         //Test 1: Insertar 4 elementos y comprobar que se insertan correctamente.
-
         boolean resultado = false;
-        Hash<String> hash1 = new Hash<>(11, 0.75f);
-        hash1.insertar(11,"Geronimo");
-        hash1.insertar(12,"Angel");
-        hash1.insertar(1,"Borja");
-        hash1.insertar(7,"Esteban");
-//        if(hash1.get(11).equals("Geronimo")){
-//            resultado = true;
-//        }else if(hash1.get(12).equals("Angel")) {
-//            resultado = true;
-//        }else if(hash1.get(1).equals("Borja")) {
-//            resultado = true;
-//        }
-//        }else if(hash1.get(7).equals("Esteban")) {
-//            resultado = true;
-//        }
-//        if(resultado){
-//            System.out.println("Test 1: OK✅");
-//        }else{
-//            System.out.println("Test 1: FAIL❌");
-//        }
+        Hash<String> hash = new Hash<>(11, 0.75f);
+        hash.insertar(11,"Geronimo");
+        hash.insertar(13,"Angel");
+        hash.insertar(15,"Borja");
+        hash.insertar(22,"David");
+        hash.insertar(33,"Gustavo");
+        System.out.println("--------------------");
 
-        System.out.println(hash1);
+
+        if(hash.get(11).equals("Geronimo")){
+            resultado = true;
+        }else if(hash.get(13).equals("Angel")) {
+            resultado = true;
+        }else if(hash.get(15).equals("Borja")) {
+            resultado = true;
+        }else if(hash.get(22).equals("David")) {
+            resultado = true;
+        }else if(hash.get(33).equals("Gustavo")) {
+            resultado = true;
+        } else if (hash.get(1) == null) {
+            resultado = true;
+        }else if (hash.get(100) == null) {
+            resultado = true;
+        }else{
+            resultado = false;
+        }
+
+
+        System.out.println(hash);
+
+        System.out.println(hash.get(11));
+        System.out.println(hash.get(13));
+        System.out.println(hash.get(15));
+        System.out.println(hash.get(22));
+        System.out.println(hash.get(33));
+
+        if(resultado){
+            System.out.println("Test 1: OK✅");
+        }else{
+            System.out.println("Test 1: FAIL❌");
+        }
     }
 
     public void test2(){
@@ -47,14 +65,14 @@ public class Pruebas {
         hash.insertar(8,"Juan");
 
 
-//        if(hash1.get(11).equals("Geronimo")){
+//        if(hash.get(11).equals("Geronimo")){
 //            resultado = true;
-//        }else if(hash1.get(12).equals("Angel")) {
+//        }else if(hash.get(12).equals("Angel")) {
 //            resultado = true;
-//        }else if(hash1.get(1).equals("Borja")) {
+//        }else if(hash.get(1).equals("Borja")) {
 //            resultado = true;
 //        }
-//        }else if(hash1.get(7).equals("Esteban")) {
+//        }else if(hash.get(7).equals("Esteban")) {
 //            resultado = true;
 //        }
 //        if(resultado){

@@ -11,8 +11,9 @@ public class Celda<Valor> {
      */
     private int clave = 0;
 
-    /*
-    Valor es un tipo genérico, por lo que puede ser cualquier tipo de dato.
+    /**
+     * Valor es un tipo genérico, por lo que puede ser cualquier tipo de dato.
+     * @param <Valor>
      */
     private Valor valor;
 
@@ -38,9 +39,14 @@ public class Celda<Valor> {
     public Celda(int clave, Valor valor){
         this.clave = clave;
         this.valor = valor;
-        this.estado = 1;
+        this.estado = 0;
     }
 
+    /**
+     * Metodo setEstado de la clase Celda, se usa para cambiar el estado de la celda.
+     * @param estado Estado de la celda.
+     * @return true si se ha cambiado el estado, false si no se ha cambiado.
+     */
     public boolean setEstado(int estado) {
         boolean devolucion = false;
         if(estado == -1 || estado == 0 || estado == 1){

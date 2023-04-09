@@ -36,8 +36,8 @@ public class Hash<Valor> {
     }
 
     public void insertar(int clave, Valor v){
-        float alpaAFuturo = (float) numElementos / contenedor.length;
-        if( alpaAFuturo>= alfaMaximo){ //camino redimensionar la hash table.
+        float alfaAFuturo =  (float) (( numElementos + 1 ) / contenedor.length);
+        if( alfaAFuturo >= alfaMaximo){ //camino redimensionar la hash table.
             redimensionar();
             int colisiones = 0;
             int indice = funcionHash(clave, colisiones);
@@ -45,7 +45,10 @@ public class Hash<Valor> {
                 colisiones++;
                 indice = funcionHash(clave, colisiones);
             }
-            contenedor[indice] = new Celda(clave, v);
+            Celda<Valor> celda = new Celda(clave, v);
+            celda.setEstado(1);
+//            contenedor[indice] = new Celda(clave, v);
+            contenedor[indice] = celda;
             numElementos++;
         }else{
             int colisiones = 0;
@@ -54,7 +57,9 @@ public class Hash<Valor> {
                 colisiones++;
                 indice = funcionHash(clave, colisiones);
             }
-            contenedor[indice] = new Celda(clave, v);
+            Celda<Valor> celda = new Celda(clave, v);
+            celda.setEstado(1);
+            contenedor[indice] = celda;
             numElementos++;
         }
 
@@ -71,12 +76,25 @@ public class Hash<Valor> {
      * @return
      */
     public Valor get(int clave){
-
-        return null;
+        Valor devolucion = null;
+        int colisiones = 0;
+        int indice = funcionHash(clave, colisiones);
+        while(hayColision(indice)){
+            if(contenedor[indice].getClave() == clave){
+                devolucion = contenedor[indice].getValor();
+            }
+            colisiones++;
+            indice = funcionHash(clave, colisiones);
+        }
+        return devolucion;
     }
 
     public boolean esVacia(){
-        return true;
+        boolean devolucion = false;
+        if(numElementos == 0){
+            devolucion = true;
+        }
+        return devolucion;
     }
 
     public float getAlfaMax() {
@@ -84,7 +102,13 @@ public class Hash<Valor> {
     }
 
     public void setAlfaMax(float alfaMaximo) {
-        this.alfaMaximo = alfaMaximo;
+        if(alfaMaximo < 0 || alfaMaximo > 1){
+            System.out.println("El factor de carga máximo debe estar entre 0 y 1.");
+        }else if(alfaMaximo < factorCarga()){
+            System.out.println("El factor de carga no puede ser menor que el actual.");
+        }else{
+            this.alfaMaximo = alfaMaximo;
+        }
     }
 
     public int getNumElementos() {
@@ -93,6 +117,7 @@ public class Hash<Valor> {
 
     public float factorCarga(){
         float devolucion = 0;
+        devolucion = (float) (numElementos / contenedor.length);
         return devolucion;
     }
 
