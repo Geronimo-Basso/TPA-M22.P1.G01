@@ -41,8 +41,13 @@ public class Celda<Valor> {
         this.estado = 1;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public boolean setEstado(int estado) {
+        boolean devolucion = false;
+        if(estado == -1 || estado == 0 || estado == 1){
+            this.estado = estado;
+            devolucion = true;
+        }
+        return devolucion;
     }
 
     public void setClave(int clave) {
