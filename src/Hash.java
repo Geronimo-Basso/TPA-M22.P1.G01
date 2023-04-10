@@ -72,8 +72,31 @@ public class Hash<Valor> {
     }
 
     public boolean borrar(int clave){
-        return true;
+        boolean devolucion = false;
+        if(esVacia()){
+            System.out.println("La tabla hash está vacía.");
+            return devolucion;
+        }
+
+        int colisiones = 0;
+        int indice = funcionHash(clave, colisiones);
+
+        while(hayColision(indice)){
+            if(contenedor[indice].getClave() == clave && contenedor[indice].getEstado() == 1){
+                contenedor[indice].setEstado(-1);
+                contenedor[indice].setValor(null);
+//                contenedor[indice].setClave(null); //todo pregunta borrar la clave?
+                numElementos--;
+                devolucion = true;
+
+            }
+            colisiones++;
+            indice = funcionHash(clave, colisiones);
+        }
+
+        return devolucion;
     }
+
 
 
     /**
@@ -83,8 +106,15 @@ public class Hash<Valor> {
      */
     public Valor get(int clave){
         Valor devolucion = null;
+
+        if(esVacia()){
+            System.out.println("La tabla hash está vacía.");
+            return devolucion;
+        }
+
         int colisiones = 0;
         int indice = funcionHash(clave, colisiones);
+
         while(hayColision(indice)){
             if(contenedor[indice].getClave() == clave){
                 devolucion = contenedor[indice].getValor();
@@ -92,6 +122,7 @@ public class Hash<Valor> {
             colisiones++;
             indice = funcionHash(clave, colisiones);
         }
+
         return devolucion;
     }
 
@@ -129,8 +160,14 @@ public class Hash<Valor> {
 
     private boolean hayColision(int index){
         boolean devolucion = false;
-        if(contenedor[index] != null){
-            devolucion = true;
+        if(!esVacia()){
+            try{
+                if(contenedor[index].getEstado() == 1){
+                    devolucion = true;
+                }
+            }catch (NullPointerException e){
+                devolucion = false;
+            }
         }
         return devolucion;
     }
