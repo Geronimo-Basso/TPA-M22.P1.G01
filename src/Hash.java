@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Clase que implementa una tabla hash con direccionamiento abierto.
  * @param <Valor> Valor es un tipo genérico, por lo que puede ser cualquier tipo de dato.
@@ -47,7 +49,7 @@ public class Hash<Valor> {
         if(numElementos >= 0){
             for (int i = 0; i < contenedor.length; i++) {
                 if(contenedor[i] != null){
-                    if(contenedor[i].getValor() == v){
+                    if(contenedor[i].getClave() == clave && contenedor[i].getEstado() == 1){
                         yaExiste = true;
                         System.out.println("El valor ya existe en la tabla hash.");
                     }
@@ -71,6 +73,10 @@ public class Hash<Valor> {
         }
     }
 
+    /**
+     * Funcion del TAD Hash que permite borrar en la tabla hash.
+     * @return true si se ha borrado el elemento, false si no se ha borrado.
+     */
     public boolean borrar(int clave){
         boolean devolucion = false;
         if(esVacia()){
@@ -81,23 +87,17 @@ public class Hash<Valor> {
         int colisiones = 0;
         int indice = funcionHash(clave, colisiones);
 
-        while(hayColision(indice)){
-            if(contenedor[indice].getClave() == clave && contenedor[indice].getEstado() == 1){
+        while(hayColision(indice) ){
+            if(contenedor[indice].getClave() == clave ){
                 contenedor[indice].setEstado(-1);
-                contenedor[indice].setValor(null);
-//                contenedor[indice].setClave(null); //todo pregunta borrar la clave?
                 numElementos--;
                 devolucion = true;
-
             }
             colisiones++;
             indice = funcionHash(clave, colisiones);
         }
-
         return devolucion;
     }
-
-
 
     /**
      * Devuelve null si el dato asociado a la clave indicada no está en la tabla.
@@ -175,7 +175,8 @@ public class Hash<Valor> {
     private int funcionHash(int clave, int colisiones){
         int devolucion = 0;
         devolucion = (hash1(clave) + hash2(clave, colisiones));
-        if(devolucion >= contenedor.length){
+
+        if(devolucion > contenedor.length){
             devolucion = devolucion % contenedor.length;
         }
         return devolucion;
@@ -195,23 +196,27 @@ public class Hash<Valor> {
 
     private void redimensionar(){
         int nuevaCapacidad = siguientePrimo(contenedor.length * 2);
-        Celda<Valor>[] nuevoContenedor = new Celda[nuevaCapacidad];
-        for (int i = 0; i < contenedor.length; i++) {
-            if(contenedor[i] != null){
-                int colisiones = 0;
-                int indice = funcionHash(contenedor[i].getClave(), colisiones);
-                while(hayColision(indice)){
-                    colisiones++;
-                    indice = funcionHash(contenedor[i].getClave(), colisiones);
-                }
-                Celda<Valor> celda = new Celda(contenedor[i].getClave(), contenedor[i].getValor());
-                celda.setEstado(1);
-                nuevoContenedor[indice] = celda;
 
+        Celda<Valor>[] contenedorProvisional = new Celda[contenedor.length];
+
+        contenedorProvisional = Arrays.copyOf(contenedor, contenedor.length);
+
+        contenedor = new Celda[nuevaCapacidad];
+
+        for (int i = 0; i < contenedorProvisional.length; i++) {
+            if(contenedorProvisional[i] != null){
+                int colisiones = 0;
+                int indice = funcionHash(contenedorProvisional[i].getClave(), colisiones);
+                while(hayColision(indice)){
+                    indice = funcionHash(contenedorProvisional[i].getClave(), colisiones);
+                    colisiones++;
+                }
+                Celda<Valor> celda = new Celda(contenedorProvisional[i].getClave(), contenedorProvisional[i].getValor());
+                celda.setEstado(1);
+                contenedor[indice] = celda;
             }
         }
-        //Asigno el nuevo contenedor a la tabla hash.
-        contenedor = nuevoContenedor;
+
     }
 
     /**
@@ -253,7 +258,8 @@ public class Hash<Valor> {
      * @return
      */
     public String toString(){
-        String devolucion = "Tabla Hash con " + numElementos + " elementos y con un alfaMaximo de: "  + alfaMaximo  + "."+ "\n" + "los elementos dentro de esta tabla hash son: " + "\n";
+//        String devolucion = "Tabla Hash con " + numElementos + " elementos y con un alfaMaximo de: "  + alfaMaximo  + "."+ "\n" + "los elementos dentro de esta tabla hash son: " + "\n";
+        String devolucion = "";
         for (int i = 0; i < contenedor.length; i++) {
             if(contenedor[i] != null){
                 devolucion += "Indice: " + i  + "    |" + " Estado: " +  contenedor[i].getEstado() + "           " + "Clave: " + contenedor[i].getClave() + "       " + "Valor: " +  contenedor[i].getValor() + "\n";
