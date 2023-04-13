@@ -6,7 +6,9 @@ public class Pruebas {
         pruebas.test2();
         pruebas.test3();
         pruebas.test4();
-
+        pruebas.test5();
+        pruebas.test6();
+        pruebas.test7();
     }
 
     /**
@@ -105,7 +107,7 @@ public class Pruebas {
     }
 
     /**
-     * Test de borrado y inserción: borro un elemento y luego inserto otro en su lugar, comprobamos que se inserta correctamente.
+     * Test de borrado e inserción: borro un elemento y luego inserto otro en su lugar, comprobamos que se inserta correctamente.
      */
     public void test4(){
         boolean resultado = false;
@@ -134,6 +136,97 @@ public class Pruebas {
             System.out.println("Test 4: OK✅");
         }else{
             System.out.println("Test 4: FAIL❌");
+        }
+    }
+
+    /**
+     * Test5 de borrado e inserción: borro un elemento el cual sufre de colision
+     * y luego inserto otro en su lugar, comprobamos que se inserta correctamente.
+     */
+    public void test5(){
+        boolean resultado = false;
+        Hash<String> hash = new Hash<>(11, 0.75f);
+        hash.insertar(11,"Geronimo");
+        hash.insertar(13,"Angel");
+        hash.insertar(15,"Borja");
+        hash.insertar(22,"David");
+        hash.insertar(33,"Gustavo");
+
+        hash.borrar(22);
+
+//        System.out.println(hash);
+
+        hash.insertar(22, "Alejandro");
+
+        if(hash.get(22).equals("Alejandro") && hash.getNumElementos() == 5){
+            resultado = true;
+        }
+
+//        System.out.println(hash);
+
+        if(resultado){
+            System.out.println("Test 5: OK✅");
+        }else{
+            System.out.println("Test 5: FAIL❌");
+        }
+    }
+
+    /**
+     * Test 6: Insertar 5 elementos y comprobar que se insertan correctamente.
+     * Intentaremos insertar otro elemento el cual, tiene la misma clave que otro ya previamente insertado.
+     */
+    public void test6(){
+        boolean resultado = false;
+        Hash<String> hash = new Hash<>(11, 0.75f);
+        hash.insertar(11,"Geronimo");
+        hash.insertar(13,"Angel");
+        hash.insertar(15,"Borja");
+        hash.insertar(22,"David");
+        hash.insertar(33,"Gustavo");
+
+//        System.out.println(hash);
+
+        hash.insertar(22, "Alejandro");
+
+        if(hash.get(22).equals("David") && hash.getNumElementos() == 5){
+            resultado = true;
+        }
+
+//        System.out.println(hash);
+
+        if(resultado){
+            System.out.println("Test 6: OK✅");
+        }else{
+            System.out.println("Test 6: FAIL❌");
+        }
+    }
+
+    /**
+     * Test5 de borrado: borro un elemento para despues pedirle que le vuelva a borrar.
+     */
+    public void test7(){
+        boolean resultado = false;
+        Hash<String> hash = new Hash<>(11, 0.75f);
+        hash.insertar(11,"Geronimo");
+        hash.insertar(13,"Angel");
+        hash.insertar(15,"Borja");
+        hash.insertar(22,"David");
+        hash.insertar(33,"Gustavo");
+
+        hash.borrar(23);
+//        System.out.println(hash);
+        hash.borrar(22);
+
+        if(hash.get(22) == null){
+            resultado = true;
+        }
+
+//        System.out.println(hash);
+
+        if(resultado){
+            System.out.println("Test 7: OK✅");
+        }else{
+            System.out.println("Test 7: FAIL❌");
         }
     }
 }
