@@ -258,7 +258,6 @@ public class Hash<Valor> {
      * @return
      */
     public String toString(){
-//        String devolucion = "Tabla Hash con " + numElementos + " elementos y con un alfaMaximo de: "  + alfaMaximo  + "."+ "\n" + "los elementos dentro de esta tabla hash son: " + "\n";
         String devolucion = "";
         for (int i = 0; i < contenedor.length; i++) {
             if(contenedor[i] != null){
