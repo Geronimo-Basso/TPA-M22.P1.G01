@@ -73,7 +73,7 @@ public class Pruebas {
     }
 
     /**
-     * Test de borrado: buscamos un elemento y lo borramos, comprobamos que se borra correctamente, luego borro toodos los elementos.
+     * Test de borrado: buscamos un elemento y lo borramos, luego borramos un elemento que habia colisionado previamente con el elemento que borramos.
      */
     public void test3(){
         boolean resultado = false;
@@ -88,8 +88,9 @@ public class Pruebas {
         hash.borrar(11);
         hash.borrar(13);
         hash.borrar(15);
+        hash.borrar(22);
 
-        if(hash.get(11) == null && hash.get(13) == null && hash.get(15) == null){
+        if( hash.get(33).equals("Gustavo") && hash.getNumElementos() == 1){
             resultado = true;
         }
 
@@ -197,10 +198,9 @@ public class Pruebas {
         hash.insertar(22,"David");
         hash.insertar(33,"Gustavo");
 
-        hash.borrar(23);
         hash.borrar(22);
 
-        if(hash.get(22) == null){
+        if(hash.borrar(22) == false && hash.getNumElementos() == 4){
             resultado = true;
         }
 

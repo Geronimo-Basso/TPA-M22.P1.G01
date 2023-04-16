@@ -88,7 +88,7 @@ public class Hash<Valor> {
         int indice = funcionHash(clave, colisiones);
 
         while(hayColision(indice) ){
-            if(contenedor[indice].getClave() == clave ){
+            if(contenedor[indice].getClave() == clave && contenedor[indice].getEstado() == 1){
                 contenedor[indice].setEstado(-1);
                 numElementos--;
                 devolucion = true;
@@ -162,7 +162,7 @@ public class Hash<Valor> {
         boolean devolucion = false;
         if(!esVacia()){
             try{
-                if(contenedor[index].getEstado() == 1){
+                if(contenedor[index].getEstado() == 1 || contenedor[index].getEstado() == -1){
                     devolucion = true;
                 }
             }catch (NullPointerException e){
@@ -243,7 +243,7 @@ public class Hash<Valor> {
      * @param numero
      * @return
      */
-    private int siguientePrimo(int numero){ //todo Explorar el caso en el que numero sea 1. Dado que si numero es 1, el siguiente primo es 2. Pero quiero una tabla con 2 o 3?
+    private int siguientePrimo(int numero){
         while(!esPrimo(numero)){
             numero++;
         }
