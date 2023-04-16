@@ -216,7 +216,6 @@ public class Hash<Valor> {
                 contenedor[indice] = celda;
             }
         }
-
     }
 
     /**
